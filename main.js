@@ -2,7 +2,7 @@ var stage,
     maze = [],
     mazeWidth = 80,
     mazeHeight = 100,
-    tileSize = 10,
+    tileSize = 20,
     mazeGraphics,
     i, j;
 
@@ -18,10 +18,8 @@ var buildMaze = function(stage) {
 
 buildMaze.prototype = {
     create: function() {
-        console.log('create')
         var moves = [];
         mazeGraphics = new createjs.Graphics();
-        console.log('mazeGraphics', mazeGraphics)
         for(var i = 0; i < mazeHeight; i ++){
                maze[i] = [];
                for(var j = 0; j < mazeWidth; j ++){
@@ -32,25 +30,26 @@ buildMaze.prototype = {
           var posY = 1;
           maze[posX][posY] = 0;
           moves.push(posY + posY * mazeWidth);
-          //setInterval(handler, 25);
-          handler();
+          setInterval(handler, 25);
           function handler() {
                 if(moves.length){
-                var possibleDirections = "";
-                if(posX+2 > 0 && posX + 2 < mazeHeight - 1 && maze[posX + 2][posY] == 1){
-                        possibleDirections += "S";
-                }
-                if(posX-2 > 0 && posX - 2 < mazeHeight - 1 && maze[posX - 2][posY] == 1){
-                        possibleDirections += "N";
-                }
-                if(posY-2 > 0 && posY - 2 < mazeWidth - 1 && maze[posX][posY - 2] == 1){
-                        possibleDirections += "W";
-                }
-                if(posY+2 > 0 && posY + 2 < mazeWidth - 1 && maze[posX][posY + 2] == 1){
-                        possibleDirections += "E";
-                }
-                if(possibleDirections){
-                        var move = Math.random(0, possibleDirections.length - 1);
+                    var possibleDirections = "";
+                    if(posX+2 > 0 && posX + 2 < mazeHeight - 1 && maze[posX + 2][posY] == 1){
+                            possibleDirections += "S";
+                    }
+                    if(posX-2 > 0 && posX - 2 < mazeHeight - 1 && maze[posX - 2][posY] == 1){
+                            possibleDirections += "N";
+                    }
+                    if(posY-2 > 0 && posY - 2 < mazeWidth - 1 && maze[posX][posY - 2] == 1){
+                            possibleDirections += "W";
+                    }
+                    if(posY+2 > 0 && posY + 2 < mazeWidth - 1 && maze[posX][posY + 2] == 1){
+                            possibleDirections += "E";
+                    }
+                    if(possibleDirections){
+                        console.log('p', possibleDirections)
+                       // var move = Math.random(0, possibleDirections.length - 1);
+                       var move = Math.floor(Math.random() * (possibleDirections.length - 0 + 1)) + 0
                         switch (possibleDirections[move]){
                             case "N":
                                 maze[posX - 2][posY] = 0;
@@ -73,32 +72,35 @@ buildMaze.prototype = {
                                 posY += 2;
                                 break;
                         }
-                        moves.push(posY + posX * mazeWidth);
-                }
-                else{
-                        var back = moves.pop();
-                        posX = Math.floor(back / mazeWidth);
-                        posY = back % mazeWidth;
-                }
-                drawMaze(posX, posY);
-            }
+                            moves.push(posY + posX * mazeWidth);
+                    }
+                    else{
+                            var back = moves.pop();
+                            posX = Math.floor(back / mazeWidth);
+                            posY = back % mazeWidth;
+                    }
+                    console.log(posY, posX)
+                    drawMaze(posX, posY);
+
+          }
           }
     }
 }
 
 function drawMaze(posX, posY){
-    mazeGraphics.clear();
-    console.log(posX, posY);
+     mazeGraphics.clear();
      var rectangle = new createjs.Shape();
      for(i = 0; i < mazeHeight; i ++){
           for(j = 0; j < mazeWidth; j ++){
                if(maze[i][j] == 1){
-                    rectangle.graphics.beginFill("DeepSkyBlue").drawRect(posY * tileSize, posX * tileSize, tileSize, tileSize)
+                   console.log('here')
+                   var rec = new createjs.Shape();
+                   rec.graphics.beginFill("#ff0000").drawRect(posY * tileSize , posX * tileSize, tileSize, tileSize);
+                   stage.addChild(rec);
                }
           }
      }
-
-    rectangle.graphics.beginFill("DeepSkyBlue").drawRect(posY * tileSize, posX * tileSize, tileSize, tileSize);
+    rectangle.graphics.beginFill("#000000").drawRect(posY * tileSize, posX * tileSize, tileSize, tileSize);
     stage.addChild(rectangle);
     stage.update();
 }
