@@ -1,8 +1,8 @@
 var stage,
     maze = [],
-    mazeWidth = 80,
+    mazeWidth = 100,
     mazeHeight = 100,
-    tileSize = 20,
+    tileSize = 10,
     mazeGraphics,
     i, j;
 
@@ -30,7 +30,7 @@ buildMaze.prototype = {
           var posY = 1;
           maze[posX][posY] = 0;
           moves.push(posY + posY * mazeWidth);
-          setInterval(handler, 25);
+          window.setInterval(handler, 1000);
           function handler() {
                 if(moves.length){
                     var possibleDirections = "";
@@ -89,17 +89,17 @@ buildMaze.prototype = {
 
 function drawMaze(posX, posY){
      mazeGraphics.clear();
-     var rectangle = new createjs.Shape();
      for(i = 0; i < mazeHeight; i ++){
           for(j = 0; j < mazeWidth; j ++){
                if(maze[i][j] == 1){
                    console.log('here')
                    var rec = new createjs.Shape();
-                   rec.graphics.beginFill("#ff0000").drawRect(posY * tileSize , posX * tileSize, tileSize, tileSize);
+                   //rec.graphics.beginFill("#ff0000").drawRect(posY * tileSize , posX * tileSize, tileSize, tileSize);
                    stage.addChild(rec);
                }
           }
      }
+     var rectangle = new createjs.Shape();
     rectangle.graphics.beginFill("#000000").drawRect(posY * tileSize, posX * tileSize, tileSize, tileSize);
     stage.addChild(rectangle);
     stage.update();
