@@ -30,7 +30,7 @@ buildMaze.prototype = {
           var posY = 1;
           maze[posX][posY] = 0;
           moves.push(posY + posY * mazeWidth);
-          window.setInterval(handler, 1000);
+          window.setInterval(handler, 1000 / 25);
           function handler() {
                 if(moves.length){
                     var possibleDirections = "";
@@ -48,8 +48,7 @@ buildMaze.prototype = {
                     }
                     if(possibleDirections){
                         console.log('p', possibleDirections)
-                       // var move = Math.random(0, possibleDirections.length - 1);
-                       var move = Math.floor(Math.random() * (possibleDirections.length - 0 + 1)) + 0
+                       var move = Math.floor(Math.random() * (possibleDirections.length - 0 + 1));
                         switch (possibleDirections[move]){
                             case "N":
                                 maze[posX - 2][posY] = 0;
@@ -89,17 +88,17 @@ buildMaze.prototype = {
 
 function drawMaze(posX, posY){
      mazeGraphics.clear();
+     var rec = new createjs.Shape();
      for(i = 0; i < mazeHeight; i ++){
           for(j = 0; j < mazeWidth; j ++){
                if(maze[i][j] == 1){
                    console.log('here')
-                   var rec = new createjs.Shape();
-                   //rec.graphics.beginFill("#ff0000").drawRect(posY * tileSize , posX * tileSize, tileSize, tileSize);
+                   rec.graphics.beginFill("#ff0000").drawRect(posY * tileSize , posX * tileSize, tileSize, tileSize);
                    stage.addChild(rec);
                }
           }
      }
-     var rectangle = new createjs.Shape();
+    var rectangle = new createjs.Shape();
     rectangle.graphics.beginFill("#000000").drawRect(posY * tileSize, posX * tileSize, tileSize, tileSize);
     stage.addChild(rectangle);
     stage.update();
