@@ -20,4 +20,6 @@ The depth-first search algorithm of maze generation is frequently implemented us
       * Make it the current cell 
 
 ### External libraries
-Maze Graphic created by [Easeljs](http://www.createjs.com/docs/easeljs/)
+* Maze Graphic created by [Easeljs](http://www.createjs.com/docs/easeljs/)
+* Underscore
+
