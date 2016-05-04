@@ -1,5 +1,5 @@
 # maze.js
-Javascript perfect maze implementation, This repo is still under development.
+Javascript perfect maze implementation, This repo is still under development. Needs some performance enhancements
 
 ###Live view
 To view maze generation click [here](http://nazanin1369.github.io/maze.js/)
